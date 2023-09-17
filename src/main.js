@@ -6,7 +6,7 @@ import router from './router'
 const urlBack = {
     data() {
         return {
-            url_back: 'http://ec2-18-228-240-165.sa-east-1.compute.amazonaws.com'
+            url_back: 'http://ec2-18-228-240-165.sa-east-1.compute.amazonaws.com:8080'
                 //url_base: 'https://backyodepto.torfe.com.ar'
         }
     }

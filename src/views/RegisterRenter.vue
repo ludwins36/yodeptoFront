@@ -79,7 +79,7 @@
                             </div>
                         </div> -->
                         <div class="row">
-                            <div id="recaptcha" ref="recaptcha"></div>
+                               <!-- <div id="recaptcha" ref="recaptcha"></div> -->
                             <button @click="submitForm" class="btn btn-primary btn-block">Registrarme</button>
                         </div>
                     </div>
@@ -109,10 +109,10 @@ export default {
     components: {
     },
     mounted() {
-        grecaptcha.render(this.$refs.recaptcha, {
-            sitekey: '6Lcc8dkmAAAAAIxmc9HMdQhUcwQRbE_RXw1corZQ',
-            callback: this.onCaptchaVerify,
-        });
+        // grecaptcha.render(this.$refs.recaptcha, {
+        //     sitekey: '6Lcc8dkmAAAAAIxmc9HMdQhUcwQRbE_RXw1corZQ',
+        //     callback: this.onCaptchaVerify,
+        // });
     },
     methods: {
         validate() {
@@ -127,14 +127,16 @@ export default {
 
             if (this.password.length < 8 || this.password.length > 20) {
                 this.textAlert += "*La contraseña debe tener entre 8 y 20 caracteres.";
-            } else if (!this.password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,20}$/)) {
-                this.textAlert += "*La contraseña debe contener al menos una letra mayúscula, una letra minúscula y un número.";
-            }
+            } 
+            // else if (!this.password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,20}$/)) {
+            //     this.textAlert += "*La contraseña debe contener al menos una letra mayúscula, una letra minúscula y un número.";
+            // }
 
             this.textAlert += this.acceptTerms == true ? '' : '*Acepte los términos y condiciones ';
 
             return this.textAlert == '' ? true : false;
         },
+
         async register() {
             const myHeaders = new Headers();
             myHeaders.append("Accept", "application/json");
@@ -154,7 +156,6 @@ export default {
                 body: urlencoded,
                 redirect: 'follow'
             };
-
             let request = fetch(this.url_back + "/api/register", requestOptions);
             let response = await request;
             let data = await response.json();
@@ -179,18 +180,18 @@ export default {
         },
         submitForm() {
             if (this.validate()) {
-                const recaptchaResponse = grecaptcha.getResponse();
+                this.register();
+                // const recaptchaResponse = grecaptcha.getResponse();
 
-                if (recaptchaResponse) {
-                    // El reCAPTCHA ha sido verificado correctamente
-                    console.log('reCAPTCHA verificado', recaptchaResponse);
-                    this.register();
-                } else {
-                    // El reCAPTCHA no ha sido verificado
-                    console.error('Por favor, verifica el reCAPTCHA.');
-                    this.textAlert = 'Por favor, verifica el reCAPTCHA.';
-                    this.showMsgAlert();
-                }
+                // if (recaptchaResponse) {
+                //     // El reCAPTCHA ha sido verificado correctamente
+                //     console.log('reCAPTCHA verificado', recaptchaResponse);
+                // } else {
+                //     // El reCAPTCHA no ha sido verificado
+                //     console.error('Por favor, verifica el reCAPTCHA.');
+                //     this.textAlert = 'Por favor, verifica el reCAPTCHA.';
+                //     this.showMsgAlert();
+                // }
             } else {
                 this.showMsgAlert();
             }

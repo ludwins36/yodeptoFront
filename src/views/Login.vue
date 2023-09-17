@@ -96,6 +96,8 @@ export default {
             let response = await request;
             let data = await response.json();
 
+            console.log(response);
+
             if (response.ok && response.status == 201) {
                 if (data.user.status == 'suspendido') {
                     this.textAlert = 'Usuario suspendido';
